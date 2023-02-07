@@ -35,4 +35,15 @@ describe 'Items API' do
       expect(item[:attributes][:merchant_id]).to be_a(Integer)
     end
   end
+
+  it 'Sends one item' do
+    create_list(:item, 3)
+    merchant = create(:merchant)
+    item = Item.first 
+    get "/api/v1/items/#{item.id}"
+
+    expect(response).to be_successful
+
+    item = JSON.parse(response.body, symbolize_names: true)
+  end
 end
