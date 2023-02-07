@@ -36,6 +36,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'shoulda-matchers'
   gem 'faker'
+  gem 'pry'
   gem 'database_cleaner'
 end
 
