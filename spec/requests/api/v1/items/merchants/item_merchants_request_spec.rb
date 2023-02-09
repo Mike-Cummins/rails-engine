@@ -4,7 +4,6 @@ describe 'Items API' do
   it "Sends a list of all items" do
     merchant_1 = create(:merchant)
     create_list(:item, 3, merchant_id: merchant_1.id)
-    create_list(:item, 3)
     item = Item.first
    
     get "/api/v1/items/#{item.id}/merchant"
