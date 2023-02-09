@@ -18,6 +18,10 @@ class Api::V1::ItemsController < ApplicationController
     render json: ItemSerializer.new(item)
   end
 
+  def destroy
+    
+  end
+
   private
 
   def item_params
