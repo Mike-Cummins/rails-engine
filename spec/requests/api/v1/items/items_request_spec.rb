@@ -163,6 +163,10 @@ describe 'Items API' do
     delete "/api/v1/items/#{item.id}"
 
     expect(response).to be_successful
+
+    data = JSON.parse(response.body, symbolize_names: true)
+
+    expect(Item.all.count).to eq(2)
   end
 
   it 'Errors 404 when item does not exist' do
