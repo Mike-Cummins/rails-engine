@@ -183,11 +183,47 @@ describe 'Items API' do
   end
 
   it 'Sends all items given a minimum price' do
-    create_list(:item, 5)
+    create_list(:item, 5, unit_price: Faker::Number.within(range: 1.0..998.0))
+    create_list(:item, 5, unit_price: Faker::Number.within(range: 999..1100))
   
     get '/api/v1/items/find_all?min_price=999'
     
-    # expect(response).to be_successful
-    require 'pry'; binding.pry
+    expect(response).to be_successful
+
+    items = JSON.parse(response.body, symbolize_names: true)
+    
+    expect(items).to have_key(:data)
+    expect(items[:data]).to be_a(Array)
+    expect(items[:data].count).to eq(5)   
+  end
+
+  it 'Sends all items given a maximum price' do
+    create_list(:item, 5, unit_price: Faker::Number.within(range: 1.0..998.0))
+    create_list(:item, 5, unit_price: Faker::Number.within(range: 999..1100))
+  
+    get '/api/v1/items/find_all?min_price=998'
+    
+    expect(response).to be_successful
+
+    items = JSON.parse(response.body, symbolize_names: true)
+    
+    expect(items).to have_key(:data)
+    expect(items[:data]).to be_a(Array)
+    expect(items[:data].count).to eq(5)
+  end
+
+  it 'Sends all items given a minimum and maximum price' do
+    create_list(:item, 5, unit_price: Faker::Number.within(range: 1.0..998.0))
+    create_list(:item, 5, unit_price: Faker::Number.within(range: 999..1100))
+  
+    get '/api/v1/items/find_all?min_price=999&max_price=1100'
+    
+    expect(response).to be_successful
+
+    items = JSON.parse(response.body, symbolize_names: true)
+    
+    expect(items).to have_key(:data)
+    expect(items[:data]).to be_a(Array)
+    expect(items[:data].count).to eq(5)
   end
 end
