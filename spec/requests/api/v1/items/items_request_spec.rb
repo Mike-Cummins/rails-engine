@@ -181,4 +181,13 @@ describe 'Items API' do
     expect(data[:errors].first[:status]).to eq("404")
     expect(data[:errors].first[:title]).to eq("Couldn't find Item with 'id'=1")
   end
+
+  it 'Sends all items given a minimum price' do
+    create_list(:item, 5)
+  
+    get '/api/v1/items/find_all?min_price=999'
+    
+    # expect(response).to be_successful
+    require 'pry'; binding.pry
+  end
 end

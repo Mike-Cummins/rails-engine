@@ -13,10 +13,4 @@ class Item < ApplicationRecord
     min = 0 if min.nil?
     Item.where('unit_price >= ?', min).where('unit_price <= ?', max).order(Arel.sql('lower(name)'))
   end
-  
-  def self.find_all_by_name(name)
-    Item.where('name ILIKE ?', "%#{name}%")
-        # .or(Item.where('description ILIKE ?', "%#{name}%"))
-        .order(Arel.sql('lower(name)'))
-  end
 end
